@@ -26,12 +26,9 @@ metadata:
   labels:
     app: product
   name: product
-  annotations:
-    proxy.istio.io/config: |
-          tracing:
-            sampling: 100
 spec:
   replicas: 1
+  revisionHistoryLimit: 1
   selector:
     matchLabels:
       app: product

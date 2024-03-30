@@ -1,0 +1,37 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: user-deployment
+  labels:
+    component: user-deployment
+spec:
+  revisionHistoryLimit: 1
+  selector:
+    matchLabels:
+      component: user-deployment
+  template:
+    metadata:
+      labels:
+        component: user-deployment
+    spec:
+      containers:
+        - name: user-deployment
+          image: tannguyenit/bsm-user-service
+          resources:
+            requests:
+              cpu: 200m # The container requests 200 millicores (that is, 1/5 of a single CPU core’s time).
+              memory: 10Mi # The container also requests 10 mebibytes of memory.
+          envFrom:
+            - configMapRef:
+                name: microservice-cm
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: user-svc
+spec:
+  selector:
+    component: user-deployment
+  ports:
+    - port: 80
+      targetPort: 80

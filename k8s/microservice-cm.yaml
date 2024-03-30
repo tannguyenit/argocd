@@ -1,0 +1,9 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: microservice-cm
+  labels:
+    component: microservice-cm
+data:
+  NODE_ENV: testing
+  USER_SERVICE_API_BASE: user-svc
